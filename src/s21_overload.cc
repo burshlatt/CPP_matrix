@@ -66,13 +66,9 @@ S21Matrix& S21Matrix::operator*=(const double number) noexcept {
 
 // Перегрузка оператора присваивания матрице значений другой матрицы
 S21Matrix& S21Matrix::operator=(const S21Matrix& matrix) noexcept {
-  rows_ = matrix.rows_;
-  cols_ = matrix.cols_;
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      matrix_[i][j] = matrix.matrix_[i][j];
-    }
-  }
+  this->~S21Matrix();
+  CreateMatrix(matrix.rows_, matrix.cols_);
+  MoveMatrix(matrix);
   return *this;
 }
 

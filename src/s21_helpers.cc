@@ -6,10 +6,7 @@ void S21Matrix::CreateMatrix(const int rows, const int cols) noexcept {
   cols_ = cols;
   matrix_ = new double *[rows];
   for (int i = 0; i < rows; i++) {
-    matrix_[i] = new double[cols]();
-    for (int j = 0; j < cols; j++) {
-      matrix_[i][j] = 0.0;
-    }
+    matrix_[i] = new double[cols]{};
   }
 }
 
@@ -39,7 +36,8 @@ void S21Matrix::SubOrSum(const S21Matrix &matrix, const bool is_sum) {
 }
 
 // Дополнительный метод нахождения минора
-void S21Matrix::MinorSearch(double **A, double **buffer, int skip_i, int skip_j, int size) const noexcept {
+void S21Matrix::MinorSearch(double **A, double **buffer, int skip_i, int skip_j,
+                            int size) const noexcept {
   int index_i = 0;
   int index_j = 0;
   for (int i = 0; i < size; i++) {

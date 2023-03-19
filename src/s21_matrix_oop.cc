@@ -1,10 +1,11 @@
 #include "s21_matrix_oop.h"
 
 // Дефолтный конструктор
-S21Matrix::S21Matrix() : rows_(3), cols_(3) { CreateMatrix(3, 3); }
+S21Matrix::S21Matrix() : rows_(0), cols_(0), matrix_(nullptr) {}
 
 // Параметризированный конструктор с количеством строк и столбцов
-S21Matrix::S21Matrix(const int rows, const int cols) : rows_(rows), cols_(cols) {
+S21Matrix::S21Matrix(const int rows, const int cols)
+    : rows_(rows), cols_(cols) {
   if (rows_ <= 0 || cols <= 0) {
     throw std::invalid_argument("Values can't be less or equal to 0");
   }
@@ -50,7 +51,8 @@ bool S21Matrix::EqMatrix(const S21Matrix& matrix) const noexcept {
       for (int j = 0; j < cols_ && status == true; j++) {
         double num_1 = matrix_[i][j];
         double num_2 = matrix.matrix_[i][j];
-        if (std::fabs(num_1 - num_2) >= std::numeric_limits<double>::epsilon()) {
+        if (std::fabs(num_1 - num_2) >=
+            std::numeric_limits<double>::epsilon()) {
           status = false;
         }
       }
