@@ -22,9 +22,3 @@ clean:
 	@echo --------------------- CLEAN ---------------------
 	rm -rf *.o *.a s21_matrix_oop unit_tests
 	@echo -------------------- SUCCESS --------------------
-
-#	=== Проверка на clang-format ===
-clang:
-	cp ../materials/linters/.clang-format .
-	clang-format -n *.cc *.h
-	rm -rf .clang-format
