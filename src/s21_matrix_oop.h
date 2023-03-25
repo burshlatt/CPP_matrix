@@ -1,13 +1,13 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
-#include <algorithm>
 #include <cmath>
-#include <cstring>
-#include <exception>
-#include <iostream>
 #include <limits>
+#include <cstring>
 #include <utility>
+#include <iostream>
+#include <exception>
+#include <algorithm>
 
 class S21Matrix {
  public:
