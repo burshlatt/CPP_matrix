@@ -11,9 +11,9 @@
 
 class S21Matrix {
  public:
-  explicit S21Matrix();
+  S21Matrix();
   S21Matrix(S21Matrix&& matrix) noexcept;
-  explicit S21Matrix(const S21Matrix& matrix);
+  S21Matrix(const S21Matrix& matrix);
   explicit S21Matrix(const int rows, const int cols);
   ~S21Matrix();
 
