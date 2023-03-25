@@ -46,16 +46,17 @@ class S21Matrix {
   void MulNumber(const double number) noexcept;
   bool EqMatrix(const S21Matrix& matrix) const noexcept;
 
- private:
-  int rows_;
-  int cols_;
-  double** matrix_;
-
+ protected:
   void MoveMatrix(const S21Matrix& matrix) noexcept;
   void CreateMatrix(const int rows, const int cols) noexcept;
   double DeterminantSearch(S21Matrix* A, int size) const noexcept;
   void SubOrSum(const S21Matrix& matrix, const bool is_sum) noexcept;
   void MinorSearch(double** A, double** buffer, int skip_i, int skip_j, int size) const noexcept;
+
+ private:
+  int rows_;
+  int cols_;
+  double** matrix_;
 };
 
 S21Matrix operator*(S21Matrix& matrix, const double number) noexcept;
