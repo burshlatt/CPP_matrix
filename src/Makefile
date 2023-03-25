@@ -22,25 +22,18 @@ leaks: test
 	leaks -atExit -- ./unit_tests
 	@echo ---------------------- END ----------------------
 
-#	== УСТАНОВКА LCOV ==
+#	=== УСТАНОВКА LCOV ===
 lcov:
 	cd && brew install lcov
 
-#	== СОЗДАНИЕ GCOV ОТЧЕТА ==
+#	=== СОЗДАНИЕ GCOV ОТЧЕТА ===
 #	Для корректной работы нужно установить lcov: make lcov
 gcov_report: leaks
-#	$(CC) $(FLAGS) --coverage unit_tests.cc s21_*.cc s21_matrix_oop.a $(TEST_FLAGS) -o gcov_test
-#	./gcov_test
-#	lcov -t "matrix" -o matrix.info -c -d .
-#	genhtml -o report matrix.info
-#	open ./report/index.html
-
 	$(CC) $(FLAGS) --coverage unit_tests.cc s21_*.cc s21_matrix_oop.a $(TEST_FLAGS) -o gcov_test
 	./gcov_test
 	lcov -t "matrix" -o matrix.info -c -d .
 	genhtml -o report matrix.info
 	open ./report/index.html
-
 	@echo ------------------ OPEN REPORT ------------------
 
 #	=== Очистка ===
