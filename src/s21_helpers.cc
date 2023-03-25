@@ -20,10 +20,7 @@ void S21Matrix::MoveMatrix(const S21Matrix &matrix) noexcept {
 }
 
 // Дополнительный метод сложения-вычитания
-void S21Matrix::SubOrSum(const S21Matrix &matrix, const bool is_sum) {
-  if (rows_ != matrix.rows_ || cols_ != matrix.cols_) {
-    throw std::out_of_range("Matrix must be the same size");
-  }
+void S21Matrix::SubOrSum(const S21Matrix &matrix, const bool is_sum) noexcept {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
       if (is_sum == true) {

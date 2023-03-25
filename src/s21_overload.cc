@@ -40,6 +40,15 @@ bool S21Matrix::operator==(const S21Matrix& matrix) const noexcept {
   return EqMatrix(matrix);
 }
 
+// Перегрузка оператора проверки на неравенство
+bool S21Matrix::operator!=(const S21Matrix& matrix) const noexcept {
+  bool result = true;
+  if (EqMatrix(matrix)) {
+    result = false;
+  }
+  return result;
+}
+
 // Перегрузка оператора присвоения-сложения
 S21Matrix& S21Matrix::operator+=(const S21Matrix& matrix) noexcept {
   SumMatrix(matrix);

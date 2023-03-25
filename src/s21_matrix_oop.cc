@@ -29,7 +29,7 @@ S21Matrix::S21Matrix(S21Matrix&& matrix) noexcept {
 }
 
 // Деструктор класса
-S21Matrix::~S21Matrix() {
+S21Matrix::~S21Matrix() noexcept {
   if (matrix_ != nullptr) {
     for (int i = 0; i < rows_; i++) {
       if (matrix_[i] != nullptr) {
@@ -64,12 +64,18 @@ bool S21Matrix::EqMatrix(const S21Matrix& matrix) const noexcept {
 }
 
 // Метод сложения матриц
-void S21Matrix::SumMatrix(const S21Matrix& matrix) noexcept {
+void S21Matrix::SumMatrix(const S21Matrix& matrix) {
+  if (rows_ != matrix.rows_ || cols_ != matrix.cols_) {
+    throw std::out_of_range("Matrix must be the same size");
+  }
   SubOrSum(matrix, true);
 }
 
 // Метод вычитания матриц
-void S21Matrix::SubMatrix(const S21Matrix& matrix) noexcept {
+void S21Matrix::SubMatrix(const S21Matrix& matrix) {
+  if (rows_ != matrix.rows_ || cols_ != matrix.cols_) {
+    throw std::out_of_range("Matrix must be the same size");
+  }
   SubOrSum(matrix, false);
 }
 
@@ -119,7 +125,7 @@ S21Matrix S21Matrix::CalcComplements() {
   }
   S21Matrix result_matrix(rows_, cols_);
   if (rows_ == 1) {
-    matrix_[0][0] = 1;
+    result_matrix(0, 0) = 1;
   } else {
     S21Matrix* buffer = new S21Matrix(rows_, rows_);
     for (int i = 0; i < rows_; i++) {

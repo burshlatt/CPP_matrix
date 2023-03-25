@@ -21,6 +21,11 @@ TEST(test_class, copy_constructor) {
   EXPECT_EQ(copy.get_rows(), 12);
 }
 
+TEST(test_class, copy_constructor_empty) {
+  S21Matrix m;
+  EXPECT_ANY_THROW(S21Matrix copy(m));
+}
+
 TEST(test_class, move_constructor) {
   S21Matrix m(12, 12);
   S21Matrix moved(std::move(m));
@@ -131,6 +136,45 @@ TEST(test_functional, eq_matrix1) {
   ASSERT_TRUE(m == n);
 }
 
+TEST(test_functional, eq_matrix2) {
+  S21Matrix m(3, 2);
+  S21Matrix n(2, 3);
+
+  m(0, 1) = 69;
+  n(0, 1) = 69;
+
+  ASSERT_TRUE(m != n);
+}
+
+TEST(test_functional, eq_matrix3) {
+  S21Matrix m(3, 2);
+  S21Matrix n(3, 2);
+
+  m(0, 1) = 69;
+  n(0, 1) = 96;
+
+  ASSERT_TRUE(m != n);
+}
+
+TEST(test_functional, not_eq_matrix) {
+  S21Matrix m(3, 2);
+  S21Matrix n(3, 2);
+
+  m(0, 1) = 69;
+  n(0, 1) = 69;
+
+  ASSERT_FALSE(m != n);
+}
+
+TEST(test_functional, index_operator) {
+  S21Matrix m(2, 2);
+
+  m(0, 0) = 1;
+  m(1, 1) = 1;
+
+  EXPECT_ANY_THROW(m(5, 5));
+}
+
 TEST(test_functional, sum_matrix) {
   S21Matrix m(2, 2);
   S21Matrix n(2, 2);
@@ -146,6 +190,20 @@ TEST(test_functional, sum_matrix) {
   EXPECT_EQ(m(0, 0), 2);
   EXPECT_EQ(m(1, 1), 2);
 }
+
+TEST(test_functional, sum_no_eq_matrix) {
+  S21Matrix m(2, 2);
+  S21Matrix n(3, 3);
+
+  m(0, 0) = 1;
+  n(0, 0) = 1;
+
+  m(1, 1) = 1;
+  n(1, 1) = 1;
+
+  EXPECT_ANY_THROW(m.SumMatrix(n));
+}
+
 
 TEST(test_functional, add_operator_overload) {
   S21Matrix m(2, 2);
@@ -193,6 +251,19 @@ TEST(test_functional, sub_matrix) {
 
   EXPECT_EQ(m(0, 0), 0);
   EXPECT_EQ(m(1, 1), 0);
+}
+
+TEST(test_functional, sub_no_eq_matrix) {
+  S21Matrix m(2, 2);
+  S21Matrix n(3, 3);
+
+  m(0, 0) = 1;
+  n(0, 0) = 1;
+
+  m(1, 1) = 1;
+  n(1, 1) = 1;
+
+  EXPECT_ANY_THROW(m.SubMatrix(n));
 }
 
 TEST(test_functional, eqsub_overloaded_operator) {
@@ -255,6 +326,13 @@ TEST(test_functional, mul_matrices) {
   res(1, 1) = 154;
 
   ASSERT_TRUE(m.EqMatrix(res));
+}
+
+TEST(test_functional, mul_matrices1) {
+  S21Matrix m(1, 1);
+  S21Matrix n(2, 2);
+
+  EXPECT_ANY_THROW(m.MulMatrix(n));
 }
 
 TEST(test_functional, eqmul_operator) {
@@ -342,7 +420,7 @@ TEST(test_functional, mul_operator) {
   ASSERT_TRUE(m == res);
 }
 
-TEST(test_functional, mul_operator_num) {
+TEST(test_functional, mul_operator_num1) {
   const int rows = 2;
   const int cols = 3;
 
@@ -355,6 +433,31 @@ TEST(test_functional, mul_operator_num) {
   }
 
   m = 2 * m;
+
+  S21Matrix res(2, 3);
+  res(0, 0) = 2;
+  res(0, 1) = 4;
+  res(0, 2) = 6;
+  res(1, 0) = 8;
+  res(1, 1) = 10;
+  res(1, 2) = 12;
+
+  ASSERT_TRUE(m == res);
+}
+
+TEST(test_functional, mul_operator_num2) {
+  const int rows = 2;
+  const int cols = 3;
+
+  S21Matrix m(rows, cols);
+
+  for (int i = 0, c = 1; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      m(i, j) = c++;
+    }
+  }
+
+  m = m * 2;
 
   S21Matrix res(2, 3);
   res(0, 0) = 2;
@@ -457,6 +560,16 @@ TEST(test_functional, determinant_2x2) {
 
   double res = m.Determinant();
   ASSERT_NEAR(res, 7, 1e-6);
+}
+
+TEST(test_functional, complements_1x1) {
+  S21Matrix matrix_1(1, 1);
+
+  matrix_1(0, 0) = 1;
+
+  S21Matrix res = matrix_1.CalcComplements();
+
+  ASSERT_TRUE(res(0, 0) == 1);
 }
 
 TEST(test_functional, complements_3x3) {
