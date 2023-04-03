@@ -59,7 +59,4 @@ class S21Matrix {
   double** matrix_;
 };
 
-S21Matrix operator*(S21Matrix& matrix, const double number) noexcept;
-S21Matrix operator*(const double number, S21Matrix& matrix) noexcept;
-
 #endif  // SRC_S21_MATRIX_OOP_H_
