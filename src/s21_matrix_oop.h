@@ -1,13 +1,7 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
-#include <cmath>
-#include <limits>
-#include <cstring>
-#include <utility>
 #include <iostream>
-#include <exception>
-#include <algorithm>
 
 class S21Matrix {
  public:
@@ -21,6 +15,17 @@ class S21Matrix {
   int get_cols() const noexcept;
   void set_rows(const int rows);
   void set_cols(const int cols);
+  void PrintMatrix() const noexcept;
+
+  double Determinant();
+  S21Matrix InverseMatrix();
+  S21Matrix CalcComplements();
+  S21Matrix Transpose() const noexcept;
+  void SumMatrix(const S21Matrix& matrix);
+  void SubMatrix(const S21Matrix& matrix);
+  void MulMatrix(const S21Matrix& matrix);
+  void MulNumber(const double number) noexcept;
+  bool EqMatrix(const S21Matrix& matrix) const noexcept;
 
   S21Matrix& operator*=(const double number) noexcept;
   S21Matrix operator+(const S21Matrix& matrix) noexcept;
@@ -35,16 +40,6 @@ class S21Matrix {
   double& operator()(const int row, const int col) const;
   friend S21Matrix operator*(S21Matrix& matrix, const double number) noexcept;
   friend S21Matrix operator*(const double number, S21Matrix& matrix) noexcept;
-
-  double Determinant();
-  S21Matrix InverseMatrix();
-  S21Matrix CalcComplements();
-  S21Matrix Transpose() const noexcept;
-  void SumMatrix(const S21Matrix& matrix);
-  void SubMatrix(const S21Matrix& matrix);
-  void MulMatrix(const S21Matrix& matrix);
-  void MulNumber(const double number) noexcept;
-  bool EqMatrix(const S21Matrix& matrix) const noexcept;
 
  protected:
   void MoveMatrix(const S21Matrix& matrix) noexcept;
